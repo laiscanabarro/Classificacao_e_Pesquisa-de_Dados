@@ -2,7 +2,7 @@
 Trabalhos da disciplina de Classificação e Pesquisa de Dados
 &nbsp;
 
-  [Lab 1 - Shell Sort](https://moodle.inf.ufrgs.br/mod/resource/view.php?id=69433)
+  [Lab 1 - Shell Sort](file:///C:/Users/laisa/Downloads/lab1-2023.pdf)
   &nbsp;
   
   [Lab 2 - QuickSort](https://moodle.inf.ufrgs.br/mod/resource/view.php?id=69577)
