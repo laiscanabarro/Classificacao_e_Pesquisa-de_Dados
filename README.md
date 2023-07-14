@@ -2,10 +2,10 @@
 Trabalhos da disciplina de Classificação e Pesquisa de Dados
 &nbsp;
 
-  [Lab 1 - Shell Sort](file:///C:/Users/laisa/Downloads/lab1-2023.pdf)
+  [Lab 1 - Shell Sort](lab1/lab1-2023.pdf)
   &nbsp;
   
-  [Lab 2 - QuickSort](https://moodle.inf.ufrgs.br/mod/resource/view.php?id=69577)
+  [Lab 2 - QuickSort](lab2/lab2-2023.pdf)
   &nbsp;
   
-  [Lab 3 - Radix Sort](https://moodle.inf.ufrgs.br/mod/resource/view.php?id=76904)
+  [Lab 3 - Radix Sort](lab3/lab3-2023-1.pdf)
