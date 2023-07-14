@@ -1,4 +1,4 @@
-# Classificacao e Pesquisa de Dados
+# Classificação e Pesquisa de Dados
 Trabalhos da disciplina de Classificação e Pesquisa de Dados
 &nbsp;
 
