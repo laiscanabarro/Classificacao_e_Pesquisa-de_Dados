@@ -12,4 +12,4 @@ Trabalhos da disciplina de Classificação e Pesquisa de Dados
 [Lab 3 - Radix Sort](lab3/lab3-2023-1.pdf)
 
 ## Trabalho Final
-[Trabalho Final]()
+[Trabalho Final](TrabFinal/Trabalho%20final%20FIFA21.pdf)
