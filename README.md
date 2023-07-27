@@ -16,9 +16,9 @@ Trabalhos da disciplina de Classificação e Pesquisa de Dados
 
 ### Tarefas
 - [ ] Pesquisas
-  - [ ] Pesquisas sobre os nomes de jogadores
-  - [ ]  Pesquisas sobre jogadores revisados por usuários
-  - [ ]  Pesquisas sobre os melhores jogadores de uma determinada posição
-  - [ ]  Pesquisas sobre ‘tags’ de jogadores
+  - [ ]  Nomes de jogadores
+  - [ ]  Jogadores revisados por usuários
+  - [ ]  Os melhores jogadores de uma determinada posição
+  - [ ]  ‘tags’ de jogadores
 
 
