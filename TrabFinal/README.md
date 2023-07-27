@@ -7,3 +7,4 @@
 - [ ] Extras
   - [ ] Interfaces gráficas
   - [ ] Novas consultas
+  
