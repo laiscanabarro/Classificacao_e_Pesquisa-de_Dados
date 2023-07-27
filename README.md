@@ -14,11 +14,5 @@ Trabalhos da disciplina de Classificação e Pesquisa de Dados
 ## Trabalho Final
 [Trabalho Final](TrabFinal/Trabalho%20final%20FIFA21.pdf)
 
-### Tarefas
-- [ ] Pesquisas
-  - [ ]  Nomes de jogadores
-  - [ ]  Jogadores revisados por usuários
-  - [ ]  Os melhores jogadores de uma determinada posição
-  - [ ]  ‘tags’ de jogadores
 
 
