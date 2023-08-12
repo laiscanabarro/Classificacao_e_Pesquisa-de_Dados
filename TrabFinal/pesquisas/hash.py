@@ -20,13 +20,16 @@ class HashTable:
         # Para cada elemento da tabela, cria uma lista encadeada vazia
         self.table = [None] * M
 
-    def hash(self, key, M):
-        return key % M
+    def hash(self, key):
+        if isinstance(key, str):
+            return hash(key) % self.M
+        return key % self.M
+        return key % self.M
 
     def insert(self, key, value):
 
         self.size += 1
-        i = self.hash(key, self.M)
+        i = self.hash(key)
         node = self.table[i]
 
         # Caso em que não há colisão
@@ -42,7 +45,7 @@ class HashTable:
         ant.next = Node(key, value)
 
     def search(self, key):
-        i = self.hash(key, self.M)
+        i = self.hash(key)
 
         node = self.table[i]
 

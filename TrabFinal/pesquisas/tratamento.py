@@ -1,5 +1,5 @@
 import csv, time
-import hash, trie, funcoes
+import hash, trie, arrayLSE
 
 ''' tratamento de dados do arquivo rating:
     guardar em uma tabela hash as médias de avaliações e total de avaliações para cada jogador
@@ -38,14 +38,7 @@ with open("dados/rating.csv", newline='') as arquivo:
     
     arquivo.close() 
 
-arr = funcoes.insereResenhas()
-funcoes.user(4, arr)
 
-end = time.time()
-tempo_total = end - start
-print(tempo_total)
-
-'''
 with open("dados/players.csv", newline='') as arquivo:
     reader = csv.reader(arquivo)
     next(reader)
@@ -65,7 +58,7 @@ with open("dados/players.csv", newline='') as arquivo:
       hash_table_nomes.insert(name, dados)
       hash_table_id.insert(sofifa_id, dados)
 
-
+'''
 def pesquisaNomes(busca, trie_tree, hash_table, saida_nomes):      
 
     for name in trie_tree.words_from_prefixe(busca):
@@ -79,3 +72,7 @@ def pesquisaNomes(busca, trie_tree, hash_table, saida_nomes):
 busca = input()
 pesquisaNomes(busca, trie_tree, hash_table_nomes, saida_nomes)
 '''
+
+end = time.time()
+tempo_total = end - start
+print(tempo_total)

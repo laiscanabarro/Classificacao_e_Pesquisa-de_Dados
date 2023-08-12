@@ -6,11 +6,10 @@ import time
 # 2.2
 
 def insereResenhas():
-    #arr = arrayLSE.ArrLSE()
-    arr = []
+    arr = arrayLSE.ArrLSE()
     print('Inserindo os ratings')
     start_time = time.time()
-    with open(r"dados/minirating.csv") as arq:
+    with open(r"dados/rating.csv") as arq:
         leitor = csv.DictReader(arq)
         print(f'{time.time() - start_time} seconds para ler csv')
         next(leitor)
