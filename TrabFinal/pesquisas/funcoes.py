@@ -51,8 +51,10 @@ def lista_repetidos(lista):
 def player(prefixe, trie, tableNomes, jogadores):
     print(f'Exibindo os jogadores com prefixo {prefixe} no nome')
     for name in trie.collectWordsPrefix(prefixe):
-        player = tableNomes.search(jogadores[name], 0)
-        print(f"sofifa_id {player[0][0]}, name {name}, player_positions {player[0][4]}, rating {player[0][2]:.6f}, count {player[0][3]}")
+        for jogador in jogadores:
+            if name == jogador[1]:
+                player = tableNomes.search(jogador[0], 0)
+                print(f"sofifa_id {player[0][0]}, name {name}, player_positions {player[0][4]}, rating {player[0][2]:.6f}, count {player[0][3]}")
 
     print('\n')
 

@@ -6,8 +6,8 @@ from funcoes import *
 ''' tratamento de dados do arquivo rating:
     guardar em uma tabela hash as médias de avaliações e total de avaliações para cada jogador
 '''
-playerPos =[]                               # lista de listas [sofifa_id,nome, globalRating, count, positions]
-jogadores = {}                              # jogadores[name] = sofifa_id
+playerPos =[]                               # lista de listas [sofifa_id, nome, globalRating, count, positions]
+jogadores = []                              # lista de listas [sofifa_if, nome]
 lista_tags_jogadores = []                   # lista de listas [sofifa_id, lista_tags]
 hash_table_avaliacoes = HashTable(24697)    # value = [sofifa id, global ratng, count]
 hash_table_nomes = HashTable(18947)         # value = [sofifa_id, nome, globalRating, count, positions]
@@ -74,7 +74,7 @@ def processamento(rating, players, tags):
                 dados = [int(row[0]), row[1], 0, 0, row[2]]
 
             hash_table_nomes.insere(int(row[0]), dados)
-            jogadores[row[1]] = int(row[0])
+            jogadores.append([int(row[0]), row[1]])
 
             if dados[3] >= 1000:
                 playerPos.append(dados)
