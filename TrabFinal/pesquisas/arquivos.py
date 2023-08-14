@@ -22,7 +22,7 @@ def processamento(rating, players, tags):
     global playerPos
     global jogadores
     global trie_tree
-    global lista_completa
+    global lista_tags_jogadores
     # ADICIONANDO RATINGS NA HASH TABLE
 
     with open(rating, newline='') as arquivo:
