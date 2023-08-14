@@ -6,20 +6,23 @@ from funcoes import *
 ''' tratamento de dados do arquivo rating:
     guardar em uma tabela hash as médias de avaliações e total de avaliações para cada jogador
 '''
-saida_nomes = []
 playerPos =[]                               # lista de listas [sofifa_id,nome, globalRating, count, positions]
+jogadores = {}                              # jogadores[name] = sofifa_id
+lista_tags_jogadores = []                   # lista de listas [sofifa_id, lista_tags]
 hash_table_avaliacoes = HashTable(24697)    # value = [sofifa id, global ratng, count]
 hash_table_nomes = HashTable(18947)         # value = [sofifa_id, nome, globalRating, count, positions]
-hash_table_id = HashTable(18947)
 hash_table_ratings = HashTable(138494)      # value = [sofifa_id, rating]
-trie_tree = TrieTree()
+trie_tree = Trie()
 
-def processamento(rating, players):
+def processamento(rating, players, tags):
 
     global hash_table_ratings
     global hash_table_avaliacoes
     global hash_table_nomes
     global playerPos
+    global jogadores
+    global trie_tree
+    global lista_completa
     # ADICIONANDO RATINGS NA HASH TABLE
 
     with open(rating, newline='') as arquivo:
@@ -50,7 +53,7 @@ def processamento(rating, players):
         dados = sofifa_id, (float)(soma_avalicoes/contador), contador
         hash_table_avaliacoes.insere(sofifa_id, dados)
         
-        arquivo.close()
+    arquivo.close()
 
     # ADICIONANDO NOMES E POSIÇÕES NA HASH TABLE
 
@@ -62,6 +65,7 @@ def processamento(rating, players):
         for row in reader:
             #row[0] = sofifa id row[1] = nome row[2] = positions
             #value = [sofifa_id,nome, globalRating, count, positions]
+            trie_tree.insert(row[1])
             player = hash_table_avaliacoes.search(int(row[0]), 0)
 
             if player is not None:
@@ -70,7 +74,32 @@ def processamento(rating, players):
                 dados = [int(row[0]), row[1], 0, 0, row[2]]
 
             hash_table_nomes.insere(int(row[0]), dados)
+            jogadores[row[1]] = int(row[0])
 
             if dados[3] >= 1000:
                 playerPos.append(dados)
+
     arquivo.close()
+
+
+    with open(tags, newline='') as arquivo:
+        reader = csv.reader(arquivo)
+        next(reader) 
+
+        sofifa_id = int(next(reader)[1])
+        lista_tags = []
+
+        for row in reader:
+            if sofifa_id == int(row[1]):
+                lista_tags.append(row[2])
+            else:
+                jogador = [sofifa_id, lista_tags]
+                lista_tags_jogadores.append(jogador)
+                lista_tags = []
+                sofifa_id = int(row[1])
+                lista_tags.append(row[2]) 
+    
+    arquivo.close()
+                
+
+

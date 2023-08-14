@@ -1,5 +1,6 @@
 import csv
 from hash import *
+from trie import *
 
 #position é o campo da sublista que informa por onde deve ser ordenado
 def ordena(data, position):
@@ -32,6 +33,28 @@ def merge(left, right, position):
 
     return result
 
+def lista_repetidos(lista):
+    lista_rep = []
+
+    for i, elemento in enumerate(lista):
+        if elemento in lista[i+1:]:
+            lista_rep.append(elemento)
+
+    if len(lista_rep) == 0:
+        return lista
+    else:
+        return lista_rep
+
+
+# 2.1
+
+def player(prefixe, trie, tableNomes, jogadores):
+    print(f'Exibindo os jogadores com prefixo {prefixe} no nome')
+    for name in trie.collectWordsPrefix(prefixe):
+        player = tableNomes.search(jogadores[name], 0)
+        print(f"sofifa_id {player[0][0]}, name {name}, player_positions {player[0][4]}, rating {player[0][2]:.6f}, count {player[0][3]}")
+
+    print('\n')
 
 # 2.2
 
@@ -47,6 +70,7 @@ def user(key, table, tableNomes):
         print(f"sofifa_id {fifaID}, name {tableNomes.search(fifaID, 0)[0][1]}, global_rating {tableNomes.search(fifaID, 0)[0][2]:.6f}, count {tableNomes.search(fifaID, 0)[0][3]}, rating {output[i][1]}")
         i += 1
     print('\n')
+
 # 2.3
 
 def posicao(n, pos, lista):
@@ -62,3 +86,20 @@ def posicao(n, pos, lista):
         i += 1
     print('\n')
 
+# 2.4
+
+def tags(lista_tags, lista, tableNomes): 
+    lista_ids = []
+    
+    for i in lista_tags:
+        for j in lista:
+            if i in j[1]:
+                lista_ids.append(j[0])
+
+    lista_final = lista_repetidos(lista_ids)
+
+    print(f'Exibindo todos os jogadores com as tags {lista_tags}')
+    for i in lista_final:
+        player = tableNomes.search(i, 0)
+        print(f'sofifa_id {player[0][0]}, name {player[0][1]}, player_positions {player[0][4]}, rating {player[0][2]}, count {player[0][3]}')
+    print('\n')

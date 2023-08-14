@@ -1,68 +1,37 @@
-'''Uma primeira observação é que os dados de jogadores não contêm algumas das informações
-a serem retornadas. Por exemplo, deve-se primeiramente guardar em uma tabela hash as
-médias de avaliações e total de avaliações para cada jogador. Essas informações devem ser
-calculadas e armazenadas em uma etapa de pré-processamento. Para responder esta
-pesquisa, deve-se implementar uma árvore trie que busca todos os identificadores de
-jogadores que correspondem ao nome ou prefixo dado, e com essa lista de identificadores,
-buscar na tabela hash as informações complementares dos jogadores.'''
-
-class TrieTreeNode:
-
-    def __init__(self, char):
-
-        self.char = char
-        self.is_end = False
-        self.children = {}
-
-class TrieTree(object):
-
+class TrieNode:
     def __init__(self):
+        self.children = {}
+        self.end = False
 
-        self.root = TrieTreeNode("")
-    
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+        self.order = []
+
     def insert(self, word):
-
         node = self.root
-        
         for char in word:
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.end = True
+        self.order.append(word)
 
-            if char in node.children:
-
-                node = node.children[char]
-
-            else:
-
-                new_node = TrieTreeNode(char)
-                node.children[char] = new_node
-                node = new_node
-        
-        node.is_end = True
-        
-    def depth_first_search(self, node, prefix):
-
-        if node.is_end:
-
-            self.output.append((prefix + node.char))
-        
-        for child in node.children.values():
-
-            self.depth_first_search(child, prefix + node.char)
-        
-    def words_from_prefixe(self, x):
-
-        self.output = []
+    def search(self, prefix):
         node = self.root
-        
-        for char in x:
+        for char in prefix:
+            if char not in node.children:
+                return None
+            node = node.children[char]
+        return node
+    
+    def collectWordsPrefix(self, prefix):
+        prefix_node = self.search(prefix)
 
-            if char in node.children:
+        if prefix_node:
+            collected = [word for word in self.order if word.startswith(prefix)]
+            return collected
+        else:
+            return []
 
-                node = node.children[char]
 
-            else:
-
-                return []
-        
-        self.depth_first_search(node, x[:-1])
-
-        return sorted(self.output, key = lambda x: x[1], reverse = True)
