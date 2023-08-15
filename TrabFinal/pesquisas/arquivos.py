@@ -1,14 +1,19 @@
 import csv, time
 from hash import *
 from trie import *
-from funcoes import *
+# from funcoes import *
 
 ''' tratamento de dados do arquivo rating:
     guardar em uma tabela hash as médias de avaliações e total de avaliações para cada jogador
 '''
+<<<<<<< Updated upstream
 playerPos =[]                               # lista de listas [sofifa_id, nome, globalRating, count, positions]
 jogadores = []                              # lista de listas [sofifa_if, nome]
 lista_tags_jogadores = []                   # lista de listas [sofifa_id, lista_tags]
+=======
+playerPos =[]                               # lista de listas [sofifa_id,nome, globalRating, count, positions]
+jogadores = {}                              # dicionário com a chave sendo o nome e o valor seu id
+>>>>>>> Stashed changes
 hash_table_avaliacoes = HashTable(24697)    # value = [sofifa id, global ratng, count]
 hash_table_nomes = HashTable(18947)         # value = [sofifa_id, nome, globalRating, count, positions]
 hash_table_ratings = HashTable(138494)      # value = [sofifa_id, rating]
@@ -74,7 +79,11 @@ def processamento(rating, players, tags):
                 dados = [int(row[0]), row[1], 0, 0, row[2]]
 
             hash_table_nomes.insere(int(row[0]), dados)
+<<<<<<< Updated upstream
             jogadores.append([int(row[0]), row[1]])
+=======
+            jogadores[row[1]] = int(row[0])
+>>>>>>> Stashed changes
 
             if dados[3] >= 1000:
                 playerPos.append(dados)

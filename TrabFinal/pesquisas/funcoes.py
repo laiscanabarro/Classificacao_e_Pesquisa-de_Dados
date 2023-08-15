@@ -1,6 +1,10 @@
 import csv
 from hash import *
+<<<<<<< Updated upstream
 from trie import *
+=======
+from arquivos import hash_table_nomes, hash_table_ratings, playerPos
+>>>>>>> Stashed changes
 
 #position é o campo da sublista que informa por onde deve ser ordenado
 def ordena(data, position):
@@ -60,8 +64,12 @@ def player(prefixe, trie, tableNomes, jogadores):
 
 # 2.2
 
-def user(key, table, tableNomes):
-    output = table.table[key]
+def user(key):
+
+    global hash_table_nomes
+    global hash_table_ratings
+
+    output = hash_table_ratings.table[key]
 
     output = ordena(output, 1)
 
@@ -69,14 +77,15 @@ def user(key, table, tableNomes):
     print(f'Exibindo os 20 jogadores mais bem avaliados pelo usuário de id {key}')
     while i < 20 and output:
         fifaID = int(output[i][0])
-        print(f"sofifa_id {fifaID}, name {tableNomes.search(fifaID, 0)[0][1]}, global_rating {tableNomes.search(fifaID, 0)[0][2]:.6f}, count {tableNomes.search(fifaID, 0)[0][3]}, rating {output[i][1]}")
+        print(f"sofifa_id {fifaID}, name {hash_table_nomes.search(fifaID, 0)[0][1]}, global_rating {hash_table_nomes.search(fifaID, 0)[0][2]:.6f}, count {hash_table_nomes.search(fifaID, 0)[0][3]}, rating {output[i][1]}")
         i += 1
     print('\n')
 
 # 2.3
 
-def posicao(n, pos, lista):
-    lista = ordena(lista, 2)
+def posicao(n, pos):
+    global playerPos
+    lista = ordena(playerPos, 2)
     output = []
     for i in lista:
         if pos in i[4].split(', '):
