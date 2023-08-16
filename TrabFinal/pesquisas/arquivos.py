@@ -1,4 +1,4 @@
-import csv, time
+import csv
 from hash import *
 from trie import *
 # from funcoes import *
@@ -6,18 +6,15 @@ from trie import *
 ''' tratamento de dados do arquivo rating:
     guardar em uma tabela hash as médias de avaliações e total de avaliações para cada jogador
 '''
-<<<<<<< Updated upstream
 playerPos =[]                               # lista de listas [sofifa_id, nome, globalRating, count, positions]
 jogadores = []                              # lista de listas [sofifa_if, nome]
 lista_tags_jogadores = []                   # lista de listas [sofifa_id, lista_tags]
-=======
-playerPos =[]                               # lista de listas [sofifa_id,nome, globalRating, count, positions]
-jogadores = {}                              # dicionário com a chave sendo o nome e o valor seu id
->>>>>>> Stashed changes
 hash_table_avaliacoes = HashTable(24697)    # value = [sofifa id, global ratng, count]
 hash_table_nomes = HashTable(18947)         # value = [sofifa_id, nome, globalRating, count, positions]
 hash_table_ratings = HashTable(138494)      # value = [sofifa_id, rating]
 trie_tree = Trie()
+
+flagRatings = flagPlayers = flagTags = flagFim = False
 
 def processamento(rating, players, tags):
 
@@ -28,6 +25,8 @@ def processamento(rating, players, tags):
     global jogadores
     global trie_tree
     global lista_tags_jogadores
+    global flagFim, flagPlayers, flagRatings, flagTags
+    
     # ADICIONANDO RATINGS NA HASH TABLE
 
     with open(rating, newline='') as arquivo:
@@ -57,8 +56,11 @@ def processamento(rating, players, tags):
         # ultimo jogador da tabela rating
         dados = sofifa_id, (float)(soma_avalicoes/contador), contador
         hash_table_avaliacoes.insere(sofifa_id, dados)
-        
+    
+    flagRatings = True
     arquivo.close()
+
+    
 
     # ADICIONANDO NOMES E POSIÇÕES NA HASH TABLE
 
@@ -79,17 +81,14 @@ def processamento(rating, players, tags):
                 dados = [int(row[0]), row[1], 0, 0, row[2]]
 
             hash_table_nomes.insere(int(row[0]), dados)
-<<<<<<< Updated upstream
             jogadores.append([int(row[0]), row[1]])
-=======
-            jogadores[row[1]] = int(row[0])
->>>>>>> Stashed changes
 
             if dados[3] >= 1000:
                 playerPos.append(dados)
 
     arquivo.close()
 
+    flagPlayers = True
 
     with open(tags, newline='') as arquivo:
         reader = csv.reader(arquivo)
@@ -109,6 +108,6 @@ def processamento(rating, players, tags):
                 lista_tags.append(row[2]) 
     
     arquivo.close()
-                
+    flagFim = True
 
 

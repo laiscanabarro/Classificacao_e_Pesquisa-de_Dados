@@ -1,5 +1,6 @@
 from arquivos import *
 from funcoes import *
+import time
 import tkinter
 
 print('Processando os dados...')
@@ -11,15 +12,29 @@ processamento(r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\rating.csv",
 
 end = time.time()
 tempo_total = end - start
-print(f' {tempo_total:.2f} para processar os dados')
+print(f' {tempo_total:.2f}s para processar os dados')
 
-user(4, hash_table_ratings, hash_table_nomes)
-posicao(10, 'ST', playerPos)
-player('Fer', trie_tree, hash_table_nomes, jogadores)
-lista_tags = ['Brazil', 'Dribbler']
-tags(lista_tags, lista_tags_jogadores, hash_table_nomes)
+while True:
+  comando = [x.lower() for x in input('Insira o comando (s/S para encerrar): ').split()]
 
+  if comando[0] == 'user':
+    user(int(comando[1]))
 
-busca = input()
-pesquisaNomes(busca, trie_tree, hash_table_nomes, saida_nomes)
-'''
+  elif 'top' in comando[0]:
+    posicao(int(comando[0][3:]), comando[1].upper().replace("'", ''))
+
+  elif comando[0] == 'player':
+    prefixo = comando[1].capitalize()
+    player(prefixo)
+
+  elif comando[0] == 'tags':
+    lista_tags = [x.replace("'", '').capitalize() for x in comando[1:]]
+    tags(lista_tags)
+
+  elif comando[0] == 's':
+    print('Programa encerrado')
+    break
+  
+  else:
+    print('Comando inválido!')
+

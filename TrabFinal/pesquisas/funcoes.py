@@ -1,10 +1,7 @@
 import csv
 from hash import *
-<<<<<<< Updated upstream
 from trie import *
-=======
-from arquivos import hash_table_nomes, hash_table_ratings, playerPos
->>>>>>> Stashed changes
+from arquivos import hash_table_nomes, hash_table_ratings, trie_tree, lista_tags_jogadores, jogadores, playerPos
 
 #position é o campo da sublista que informa por onde deve ser ordenado
 def ordena(data, position):
@@ -52,12 +49,17 @@ def lista_repetidos(lista):
 
 # 2.1
 
-def player(prefixe, trie, tableNomes, jogadores):
+def player(prefixe):
+
+    global hash_table_nomes
+    global jogadores
+    global trie_tree
+
     print(f'Exibindo os jogadores com prefixo {prefixe} no nome')
-    for name in trie.collectWordsPrefix(prefixe):
+    for name in trie_tree.collectWordsPrefix(prefixe):
         for jogador in jogadores:
             if name == jogador[1]:
-                player = tableNomes.search(jogador[0], 0)
+                player = hash_table_nomes.search(jogador[0], 0)
                 print(f"sofifa_id {player[0][0]}, name {name}, player_positions {player[0][4]}, rating {player[0][2]:.6f}, count {player[0][3]}")
 
     print('\n')
@@ -71,7 +73,8 @@ def user(key):
 
     output = hash_table_ratings.table[key]
 
-    output = ordena(output, 1)
+    if output != None:
+        output = ordena(output, 1)
 
     i = 0
     print(f'Exibindo os 20 jogadores mais bem avaliados pelo usuário de id {key}')
@@ -99,11 +102,14 @@ def posicao(n, pos):
 
 # 2.4
 
-def tags(lista_tags, lista, tableNomes): 
+def tags(lista_tags): 
     lista_ids = []
     
+    global lista_tags_jogadores
+    global hash_table_nomes
+
     for i in lista_tags:
-        for j in lista:
+        for j in lista_tags_jogadores:
             if i in j[1]:
                 lista_ids.append(j[0])
 
@@ -111,6 +117,6 @@ def tags(lista_tags, lista, tableNomes):
 
     print(f'Exibindo todos os jogadores com as tags {lista_tags}')
     for i in lista_final:
-        player = tableNomes.search(i, 0)
+        player = hash_table_nomes.search(i, 0)
         print(f'sofifa_id {player[0][0]}, name {player[0][1]}, player_positions {player[0][4]}, rating {player[0][2]}, count {player[0][3]}')
     print('\n')
