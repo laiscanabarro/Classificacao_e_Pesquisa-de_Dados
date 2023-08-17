@@ -10,13 +10,13 @@ playerPos =[]                               # lista de listas [sofifa_id, nome, 
 jogadores = []                              # lista de listas [sofifa_if, nome]
 lista_tags_jogadores = []                   # lista de listas [sofifa_id, lista_tags]
 hash_table_avaliacoes = HashTable(24697)    # value = [sofifa id, global ratng, count]
-hash_table_nomes = HashTable(18947)         # value = [sofifa_id, nome, globalRating, count, positions]
+hash_table_nomes = HashTable(18947)         # value = [sofifa_id, nome, globalRating, count, positions, short]
 hash_table_ratings = HashTable(138494)      # value = [sofifa_id, rating]
 trie_tree = Trie()
 
 flagRatings = flagPlayers = flagTags = flagFim = False
 
-def processamento(rating, players, tags):
+def processamento(rating, players, tags, extras):
 
     global hash_table_ratings
     global hash_table_avaliacoes
@@ -65,26 +65,30 @@ def processamento(rating, players, tags):
     # ADICIONANDO NOMES E POSIÇÕES NA HASH TABLE
 
     # adiciona nome, id e posições na hash
-    with open(players, newline='') as arquivo:
+    with open(players, newline='') as arquivo, open(extras, newline='', encoding='utf-8') as arq2:
         reader = csv.reader(arquivo)
-        next(reader)  
+        leitor2 = csv.reader(arq2)
+        next(reader)
+        next(leitor2)  
 
-        for row in reader:
+        for row, linha2 in zip(reader, leitor2):
             #row[0] = sofifa id row[1] = nome row[2] = positions
             #value = [sofifa_id,nome, globalRating, count, positions]
+            #linha2 = [sofida_id, short_name]
             trie_tree.insert(row[1])
             player = hash_table_avaliacoes.search(int(row[0]), 0)
 
             if player is not None:
-                dados = [int(row[0]), row[1], player[0][1], player[0][2], row[2]]
+                dados = [int(row[0]), row[1], player[0][1], player[0][2], row[2], linha2[1]]
             else:
-                dados = [int(row[0]), row[1], 0, 0, row[2]]
+                dados = [int(row[0]), row[1], 0, 0, row[2], linha2[1]]
 
             hash_table_nomes.insere(int(row[0]), dados)
             jogadores.append([int(row[0]), row[1]])
 
             if dados[3] >= 1000:
                 playerPos.append(dados)
+        
 
     arquivo.close()
 
@@ -108,6 +112,6 @@ def processamento(rating, players, tags):
                 lista_tags.append(row[2]) 
     
     arquivo.close()
-    flagFim = True
+
 
 

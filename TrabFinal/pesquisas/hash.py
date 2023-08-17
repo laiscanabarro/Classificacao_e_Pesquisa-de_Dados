@@ -40,13 +40,14 @@ class HashTable:
             return None
         
         for item in self.table[i]:
-           if item[indice] == key:
-              output.append(item)
+            if item[indice] == key:
+                output.append(item)
             
         if len(output) == 0:
-           return None
+            return None
         else:
-           return output
+            return output
+        
 
 
 

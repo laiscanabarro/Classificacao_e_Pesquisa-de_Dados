@@ -8,7 +8,8 @@ start = time.time()
 
 processamento(r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\rating.csv", 
               r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\players.csv",
-              r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\tags.csv")
+              r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\tags.csv",
+              "playersExtras.csv")
 
 end = time.time()
 tempo_total = end - start

@@ -23,6 +23,7 @@ def exibir_foto_jogador():
     response = requests.get(foto_url)
     imgData =response.content
     img = Image.open(BytesIO(imgData))
+    img = img.resize((75,75))
     img=ImageTk.PhotoImage(img)
     # Atualizar o rótulo com a nova imagem
     label_imagem.config(image=img)
