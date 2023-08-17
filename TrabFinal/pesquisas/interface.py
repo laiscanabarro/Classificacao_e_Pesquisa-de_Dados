@@ -1,75 +1,121 @@
 import tkinter as tk
 from tkinter import font as tkfont
 from tkinter import scrolledtext
-from funcoes import *
+from funcoes import player, user, tags, posicao
 from arquivos import *
 import time
 
-def encerrar_programa():
-    # Lógica para encerrar o programa
-    pass
-
-def processar_comando():
-    comando = comando_entry.get()
-    comando = [x.lower() for x in comando.split()]
-    print(comando)
-
-    if comando[0] == 'user':
-        user(int(comando[1]))
-
-    elif 'top' in comando[0]:
-        posicao(int(comando[0][3:]), comando[1].upper().replace("'", ''))
-
-    elif comando[0] == 'player':
-        prefixo = comando[1].capitalize()
-        player(prefixo)
-
-    elif comando[0] == 'tags':
-        lista_tags = [x.replace("'", '').capitalize() for x in comando[1:]]
-        tags(lista_tags)
-
-    # Limpar a caixa de comando
-    comando_entry.delete(0, tk.END)
+titulo = voltar_button = textoWidget = None
 
 # Função para simular a obtenção da foto do jogador
 def exibe_foto_jogador():
     # Aqui você pode retornar a imagem do jogador
     pass
 
-# Função para exibir os jogadores na área de listagem
-def exibir_jogadores(jogadores):
-    for jogador in jogadores:
-        # Aqui você pode criar um widget para exibir a foto, nome, rating e count do jogador
-        # Use a função exibe_foto_jogador() para obter a imagem do jogador
-        pass
-
 # Função para realizar a ação de acordo com o comando inserido
 def processar_comando():
+
+
+    titulo_label.pack_forget()
+    subtitulo_label.pack_forget()
+    comando_label.pack_forget()
+    menu_label.pack_forget()
+    comando_entry.pack_forget()
+    iniciar_button.pack_forget()
+    encerrar_button.pack_forget()
+
+   
+
+    global titulo, voltar_button, textoWidget
+    textoWidget = tk.Text(root)
+
     comando = comando_entry.get()
     comando = [x.lower() for x in comando.split()]
     print(comando)
 
-    if comando[0] == 'user':
-        user(int(comando[1]))
+    voltar_button = tk.Button(root, text="Realizar nova consulta", command=voltar_tela_anterior)
 
-    elif 'top' in comando[0]:
-        posicao(int(comando[0][3:]), comando[1].upper().replace("'", ''))
+    try:
+        if comando[0] == 'user':
+            id = int(comando[1])
+            output = user(id)
+            titulo = tk.Label(root, text=f'Exibindo os 20 jogadores mais bem avaliados pelo usuário {id}', font=("Helvetica", 16, "bold"))
+            titulo.pack()
+            textoWidget.pack()
+            voltar_button.pack()
+            textoWidget.delete("1.0", tk.END)
+            for i in output:
+                textoWidget.insert(tk.END, f'{i}\n')
 
-    elif comando[0] == 'player':
-        prefixo = comando[1].capitalize()
-        player(prefixo)
+        elif 'top' in comando[0]:
+            n = int(comando[0][3:])
+            pos = comando[1].upper().replace("'", '')
+            output = posicao(n, pos)
+            titulo = tk.Label(root, text=f'Exibindo os {n} melhores jogadores da posição {pos}', font=("Helvetica", 16, "bold"))
+            titulo.pack()
+            textoWidget.pack()
+            voltar_button.pack()
+            textoWidget.delete("1.0", tk.END)
+            for i in output:
+                textoWidget.insert(tk.END, f'{i}\n')
 
-    elif comando[0] == 'tags':
-        lista_tags = [x.replace("'", '').capitalize() for x in comando[1:]]
-        tags(lista_tags)
+        elif comando[0] == 'player':
+            prefixo = comando[1].capitalize()
+            titulo = tk.Label(root, text=f'Exibindo os jogadores com prefixo {prefixo}', font=("Helvetica", 16, "bold"))
+            output = player(prefixo)
+            titulo.pack()
+            textoWidget.pack()
+            voltar_button.pack()
+            textoWidget.delete("1.0", tk.END)
+            for i in output:
+                textoWidget.insert(tk.END, f'{i}\n')
+
+        elif comando[0] == 'tags':
+            lista_tags = [x.replace("'", '').capitalize() for x in comando[1:]]
+            output = tags(lista_tags)
+            formatado = ' '.join([f'{tag}' for tag in lista_tags])
+            titulo = tk.Label(root, text=f'Exibindo os jogadores com as tags {formatado}', font=("Helvetica", 16, "bold"))
+            titulo.pack()
+            textoWidget.pack()
+            voltar_button.pack()
+            textoWidget.delete("1.0", tk.END)
+            for i in output:
+                textoWidget.insert(tk.END, f'{i}\n')
+        else:
+            titulo = tk.Label(root, text=f'Comando inválido!', font=("Helvetica", 16, "bold"))
+            titulo.pack()
+            voltar_button.pack()
+    except IndexError:
+        titulo = tk.Label(root, text=f'Insira um comando ou encerre o programa!', font=("Helvetica", 16, "bold"))
+        titulo.pack()
+        voltar_button.pack()
 
     # Limpar a caixa de comando
     comando_entry.delete(0, tk.END)
 
+def voltar_tela_anterior():
+    # Aqui você pode adicionar a lógica para voltar à tela anterior
+    
+    global titulo, voltar_button, textoWidget
+
+    # Primeiro, remova os widgets da tela atual
+    titulo.pack_forget()
+    voltar_button.pack_forget()
+    textoWidget.pack_forget()
+    
+    # Em seguida, restaure os widgets da tela anterior
+    titulo_label.pack()
+    subtitulo_label.pack()
+    comando_label.pack()
+    menu_label.pack()
+    comando_entry.pack()
+    iniciar_button.pack()
+    encerrar_button.pack()
+
 start = time.time()
 
 print('Processando os dados...')
-processamento(r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\rating.csv", 
+processamento(r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\minirating.csv", 
               r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\players.csv",
               r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\tags.csv")
 
@@ -93,8 +139,8 @@ menu_label = tk.Label(root, text=" \
                                 3- top<n> <posição>: retorna os melhores n jogadores que jogam na posição informada\n \
                                 4- tags <lista de tags>: retorna os jogadores que possuem todas as tags informadas", font=("Helvetica", 10), justify='left')
 comando_entry = tk.Entry(root, width=50)
-iniciar_button = tk.Button(root, text="Iniciar", command=processar_comando)
-encerrar_button = tk.Button(root, text="Encerrar programa", command=encerrar_programa, fg="red")
+iniciar_button = tk.Button(root, text="Realizar consulta", command=processar_comando)
+encerrar_button = tk.Button(root, text="Encerrar programa", command=root.destroy, fg="red")
 
 # Layout dos widgets
 titulo_label.pack()
