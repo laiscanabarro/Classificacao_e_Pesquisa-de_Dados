@@ -14,8 +14,6 @@ hash_table_nomes = HashTable(18947)         # value = [sofifa_id, nome, globalRa
 hash_table_ratings = HashTable(138494)      # value = [sofifa_id, rating]
 trie_tree = Trie()
 
-flagRatings = flagPlayers = flagTags = flagFim = False
-
 def processamento(rating, players, tags, extras):
 
     global hash_table_ratings
@@ -73,15 +71,15 @@ def processamento(rating, players, tags, extras):
 
         for row, linha2 in zip(reader, leitor2):
             #row[0] = sofifa id row[1] = nome row[2] = positions
-            #value = [sofifa_id,nome, globalRating, count, positions]
-            #linha2 = [sofida_id, short_name]
+            #value = [sofifa_id,nome, globalRating, count, positions, nationality, club_name, league_name]
+            #linha2 = [sofifa_id, nationality, club_name, league_name]
             trie_tree.insert(row[1])
             player = hash_table_avaliacoes.search(int(row[0]), 0)
 
             if player is not None:
-                dados = [int(row[0]), row[1], player[0][1], player[0][2], row[2], linha2[1]]
+                dados = [int(row[0]), row[1], player[0][1], player[0][2], row[2], linha2[1], linha2[2], linha2[3]]
             else:
-                dados = [int(row[0]), row[1], 0, 0, row[2], linha2[1]]
+                dados = [int(row[0]), row[1], 0, 0, row[2], linha2[1], linha2[2], linha2[3]]
 
             hash_table_nomes.insere(int(row[0]), dados)
             jogadores.append([int(row[0]), row[1]])
@@ -91,8 +89,6 @@ def processamento(rating, players, tags, extras):
         
 
     arquivo.close()
-
-    flagPlayers = True
 
     with open(tags, newline='') as arquivo:
         reader = csv.reader(arquivo)
