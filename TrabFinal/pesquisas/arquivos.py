@@ -37,22 +37,26 @@ def processamento(rating, players, tags, extras):
 
         # percorre toda tabela rating, calcula a media de avaliacoes de cada jogador e adiciona os novos dados em uma tabela hash
         for row in reader:
-            #row[0] = user_id, row[1] = sofifa_id row[2] = rating
+            # row[0] = user_id, row[1] = sofifa_id row[2] = rating
             hash_table_ratings.insere(int(row[0]), [row[1], float(row[2])])
             if sofifa_id == int(row[1]):
                 contador += 1
                 soma_avalicoes += float(row[2])
             else:
-                dados = sofifa_id, (float)(soma_avalicoes/contador), contador
+                rating = "{:.6f}".format(soma_avalicoes/contador) # calcula a avaliação média do jogador
+                # dados = sofifa_id, global rating, count
+                dados = sofifa_id, rating, contador
                 # sofifa id, global ratng, count
-                hash_table_avaliacoes.insere(sofifa_id, dados)
+                hash_table_avaliacoes.insere(sofifa_id, dados) # adiciona os dados na tabela hash
                 
+                # inicializa as variáveis para o próximo jogador
                 sofifa_id = int(row[1])
                 soma_avalicoes = 0
                 contador = 1
 
         # ultimo jogador da tabela rating
-        dados = sofifa_id, (float)(soma_avalicoes/contador), contador
+        rating = "{:.6f}".format(soma_avalicoes/contador)
+        dados = sofifa_id, rating, contador
         hash_table_avaliacoes.insere(sofifa_id, dados)
     
     flagRatings = True
@@ -76,33 +80,44 @@ def processamento(rating, players, tags, extras):
             trie_tree.insert(row[1])
             player = hash_table_avaliacoes.search(int(row[0]), 0)
 
-            if player is not None:
+    
+            if player is not None: # jogador está na hash_table_avaliacoes
                 dados = [int(row[0]), row[1], player[0][1], player[0][2], row[2], linha2[1], linha2[2], linha2[3]]
-            else:
+            else: # jogador não está na hash_table_avaliacoes
                 dados = [int(row[0]), row[1], 0, 0, row[2], linha2[1], linha2[2], linha2[3]]
 
-            hash_table_nomes.insere(int(row[0]), dados)
-            jogadores.append([int(row[0]), row[1]])
+            hash_table_nomes.insere(int(row[0]), dados) # adiciona os dados na tabela hash
+            jogadores.append([int(row[0]), row[1]]) # adiciona uma lista com o id e nome do jogador em uma lista com todos os jogadores
 
+            # adiciona jogadores na lista playerPos que possuem no mínimo 1000 avaliações
             if dados[3] >= 1000:
                 playerPos.append(dados)
         
 
     arquivo.close()
 
+
+    # ADICIONANDO TAGS EM UMA LISTA
+
     with open(tags, newline='') as arquivo:
         reader = csv.reader(arquivo)
         next(reader) 
 
+        # id do primeiro jogador
         sofifa_id = int(next(reader)[1])
+        # lista de tags de cada jogador
         lista_tags = []
 
         for row in reader:
+            # row[1] = sofifa id, row[2] = tag 
             if sofifa_id == int(row[1]):
-                lista_tags.append(row[2])
+                lista_tags.append(row[2])  
             else:
+                # lista com o id do jogador e a lista de tags dele
                 jogador = [sofifa_id, lista_tags]
-                lista_tags_jogadores.append(jogador)
+                lista_tags_jogadores.append(jogador)  
+                
+                # inicializa a lista de tags para o próximo jogador
                 lista_tags = []
                 sofifa_id = int(row[1])
                 lista_tags.append(row[2]) 

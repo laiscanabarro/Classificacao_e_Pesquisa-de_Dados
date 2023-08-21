@@ -4,7 +4,7 @@ from trie import *
 import tkinter as tk
 from arquivos import hash_table_nomes, hash_table_ratings, trie_tree, lista_tags_jogadores, jogadores, playerPos
 
-#position é o campo da sublista que informa por onde deve ser ordenado
+# position é o campo da sublista que informa por onde deve ser ordenado
 def ordena(data, position):
     if len(data) <= 1:
         return data
@@ -35,6 +35,8 @@ def merge(left, right, position):
 
     return result
 
+# A função lista_repetidos retorna uma lista com os elementos repetidos de uma lista. 
+# Caso não haja elementos repetidos, retorna a lista de entrada.
 def lista_repetidos(lista):
     lista_rep = []
 
@@ -57,14 +59,18 @@ def player(prefixe):
     global jogadores
     global trie_tree
     output = []
+
+    # percorre a lista com todos os jogadores com determinado prefixo
     for name in trie_tree.collectWordsPrefix(prefixe):
         for jogador in jogadores:
             if name == jogador[1]:
+                # procura na tabela hash pela chave id_sofifa
                 player = hash_table_nomes.search(jogador[0], 0)
                 output.append((player[0][0],name,player[0][4],player[0][2],player[0][3],player[0][5],player[0][6],player[0][7]))
     return output
             
 # value = [sofifa_id, nome, globalRating, count, positions, short]
+
 # 2.2
 
 def user(key):
@@ -79,6 +85,8 @@ def user(key):
     # 'FIFA ID\t\tNome\t\tGlobal Rataing\t\tCount\t\tRating'
     i = 0
     output2 = []
+
+    # lista os 20 jogadores revisados pelo usuário
     while i < 20 and output:
         fifaID = int(output[i][0])
         output2.append((fifaID,hash_table_nomes.search(fifaID, 0)[0][1],hash_table_nomes.search(fifaID, 0)[0][2],hash_table_nomes.search(fifaID, 0)[0][3],output[i][1]))
@@ -96,6 +104,7 @@ def posicao(n, pos):
         if pos in i[4].split(', '):
             output.append(i)
     i = 0
+
     while i < n and output:
         output2.append((output[i][0],output[i][1],output[i][4],output[i][2],output[i][3]))
         i += 1
@@ -111,11 +120,13 @@ def tags(lista_tags):
 
     for i in lista_tags:
         for j in lista_tags_jogadores:
-            if i in j[1]:
+            if i in j[1]: # se determinada tag está na lista de tags do jogador
                 lista_ids.append(j[0])
 
+    # lista_final -> lista com os jogadores que se repetiram, caso haja mais de uma tag na lista_tags
     lista_final = lista_repetidos(lista_ids)
     output = []
+
     for i in lista_final:
         player = hash_table_nomes.search(i, 0)
         output.append((player[0][0],player[0][1],player[0][4],player[0][2],player[0][3],player[0][5],player[0][6],player[0][7]))
