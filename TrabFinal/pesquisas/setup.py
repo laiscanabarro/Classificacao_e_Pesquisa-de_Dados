@@ -10,11 +10,15 @@ build_exe_options = {
 
 includes = []
 include_files = [
-    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\dados\rating.csv',
-    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\dados\players.csv',
-    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\dados\tags.csv',
+    r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\rating.csv",
+    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\players.csv',
+    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\tags.csv',
     r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\pesquisas\playersExtras.csv',
-    r"C:\Users\biaso\anaconda3\DLLs\_tkinter.pyd"]
+    r"C:\Users\biaso\anaconda3\DLLs\_tkinter.pyd",
+    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\pesquisas\arquivos.py',
+    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\pesquisas\funcoes.py',
+    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\pesquisas\hash.py',
+    r'C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\pesquisas\trie.py']
 packages=[]
 
 setup(

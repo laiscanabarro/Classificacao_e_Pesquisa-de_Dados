@@ -136,10 +136,10 @@ def voltar_tela_anterior():
 start = time.time()
 
 print('Processando os dados...')
-processamento(r"rating.csv", 
-              r"players.csv",
-              r"tags.csv",
-              r"playersExtras.csv")
+processamento(r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\rating.csv", 
+              r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\players.csv",
+              r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\dados\tags.csv",
+              r"C:\Users\biaso\Desktop\UFRGS\semestre3\cpd\Classificacao_e_Pesquisa_de_Dados\TrabFinal\pesquisas\playersExtras.csv")
 
 end = time.time()
 tempo_total = end - start
@@ -154,7 +154,7 @@ root.geometry(f'{1300}x{600}')
 arvore = ttk.Treeview(root, columns = [], show='headings')
 scrollbar = ttk.Scrollbar(root, orient="vertical", command=arvore.yview)
 
-titulo_label = tk.Label(root, text="Consulta aos jogadores de futebol", font=("Helvetica", 16, "bold"))
+titulo_label = tk.Label(root, text="Consulta aos dados dos jogadores de futebol", font=("Helvetica", 16, "bold"))
 subtitulo_label = tk.Label(root, text="Beatriz Soviero e Laís Canabarro", font=("Helvetica", 12))
 
 comando_label = tk.Label(root, text="Comandos disponíveis", font=("Helvetica", 12))
